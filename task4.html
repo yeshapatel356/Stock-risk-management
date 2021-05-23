@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Risk management</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        h1{
+            text-align: right;
+        }
+        
+    
+    </style>
+</head>
+<body>
+    <h2>Stock Risk management</h2>
+<div class="container-fluid">
+    <div class="container">
+        <div class="part2">
+            <fieldset>
+                <legend>Stock details</legend>
+                Stock Name: <input type="text" id="name" onclick="calculate();"> <br/>
+                Stock Price: <input type="text" id="entry" onclick="calculate();" required> <br/>
+                Stop loss: <input type="text" id="stoploss" onclick="calculate();" required><br/>
+                Risk: <input type="text" id="risk" onclick="calculate();" required><br/>
+            </fieldset>
+        </div>
+        
+    </div>
+
+    <div class="container">
+        <fieldset>
+            <legend>Claculation</legend>
+            <h3>Your Name:<span id="name2"></span></h3>
+            <table >
+                <thead>
+                    <tr><th>Variable</th><th>Units</th><th>Amout</th></tr>
+                </thead>
+                <tbody id="calculation">
+                    <tr><td>Diffrence</td><td>Rs. </td><td id='diffrence'>0</td></tr>
+                    <tr><td>Quantity</td><td>qty </td><td id='qty'>0</td></tr>
+                    <tr><td>Target</td><td>Rs. </td><td id='target'>0</td></tr>
+                    <tr><td>Total Investment </td><td>Rs. </td><td id='total'>0</td></tr>
+                    <tr><td>If Target achieve (PROFIT)</td><td>Rs. </td><td id='iftarget'>0</td></tr>
+                    <tr><td>If Stoploss achieve (LOSS)</td><td>Rs. </td><td id='ifstoploss'>0</td></tr>
+                </tbody>
+            </table>
+            </fieldset>
+            
+            
+    </div>
+</div>
+<script>
+function calculate(){
+
+
+    const entry = parseInt(document.querySelector("#entry").value);
+    const stoploss = parseInt(document.querySelector("#stoploss").value);
+    const risk = parseInt(document.querySelector("#risk").value);
+    const Diffrence =   entry-stoploss;
+    const Quantity = Math.floor(risk/Diffrence)
+    const double = Diffrence*2
+    var Target = double+entry;
+    var Total = Quantity*entry;
+    var ifTarget = (Target*Quantity) - (Total) ;
+    var ifLoss= Total- (stoploss*Quantity);
+    document.getElementById("name").addEventListener("keyup",function(){
+        // name = document.getElementById("name").value;
+        
+        document.getElementById("name2").innerHTML=this.value;
+    });
+    document.querySelector("#diffrence").innerHTML =   Diffrence;
+    document.querySelector("#qty").innerHTML =   Quantity;
+    document.querySelector("#target").innerHTML =   Target;
+    document.querySelector("#total").innerHTML =   Total;
+    document.querySelector("#iftarget").innerHTML =   ifTarget;
+    document.querySelector("#ifstoploss").innerHTML =   ifLoss;
+
+    
+}
+
+</script>
+</body>
+</html>
